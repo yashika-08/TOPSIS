@@ -35,7 +35,7 @@ https://pypi.org/project/topsis-yashika-102303439/
 https://topsis-9cec.onrender.com
 
 ## 4. User Interface 
-<img width="639" height="744" alt="image" src="https://github.com/user-attachments/assets/ec2eb319-41a6-4c2f-bcec-5695c01b98a8" />
+<img width="100" height="300" alt="image" src="https://github.com/user-attachments/assets/ec2eb319-41a6-4c2f-bcec-5695c01b98a8" />
 
 ## Technologies Used
 Python, Flask, Pandas, NumPy, HTML, CSS, SMTP(Simple Mail Tranfer Protocol), GitHub, Render
