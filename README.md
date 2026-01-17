@@ -3,12 +3,7 @@
 This project implements the **TOPSIS (Technique for Order Preference by Similarity to Ideal Solution)** method as a complete decision-support system.
 
 ## Methodology
-┌───────────────┐   ┌──────────────────┐   ┌──────────────────────┐   ┌───────────────────────┐   ┌────────────────────┐   ┌───────────────────────┐
-│  Data Input   │ → │ Data Validation  │ → │ Normalization &      │ → │ Ideal Solution        │ → │ Distance & TOPSIS  │ → │ Ranking & Result      │
-│  (CSV File)   │   │ (Numeric, Weights│   │ Weight Application   │   │ Determination         │   │ Score Calculation  │   │ Generation            │
-│               │   │ & Impacts Check) │   │                      │   │ (Best & Worst)        │   │                    │   │ (Table & Graph)       │
-└───────────────┘   └──────────────────┘   └──────────────────────┘   └───────────────────────┘   └────────────────────┘   └───────────────────────┘
-
+<img width="1091" height="152" alt="image" src="https://github.com/user-attachments/assets/273ada68-8876-4b19-b683-96ffaf96f83a" />
 
 The project is divided into three parts:
 
