@@ -2,6 +2,14 @@
 
 This project implements the **TOPSIS (Technique for Order Preference by Similarity to Ideal Solution)** method as a complete decision-support system.
 
+## Methodology
+┌───────────────┐   ┌──────────────────┐   ┌──────────────────────┐   ┌───────────────────────┐   ┌────────────────────┐   ┌───────────────────────┐
+│  Data Input   │ → │ Data Validation  │ → │ Normalization &      │ → │ Ideal Solution        │ → │ Distance & TOPSIS  │ → │ Ranking & Result      │
+│  (CSV File)   │   │ (Numeric, Weights│   │ Weight Application   │   │ Determination         │   │ Score Calculation  │   │ Generation            │
+│               │   │ & Impacts Check) │   │                      │   │ (Best & Worst)        │   │                    │   │ (Table & Graph)       │
+└───────────────┘   └──────────────────┘   └──────────────────────┘   └───────────────────────┘   └────────────────────┘   └───────────────────────┘
+
+
 The project is divided into three parts:
 
 ## 1. Command Line Application
@@ -25,6 +33,9 @@ https://pypi.org/project/topsis-yashika-102303439/
 
 🌐 Live Web App:  
 https://topsis-9cec.onrender.com
+
+## 4. User Interface 
+<img width="639" height="744" alt="image" src="https://github.com/user-attachments/assets/ec2eb319-41a6-4c2f-bcec-5695c01b98a8" />
 
 ## Technologies Used
 Python, Flask, Pandas, NumPy, HTML, CSS, SMTP(Simple Mail Tranfer Protocol), GitHub, Render
