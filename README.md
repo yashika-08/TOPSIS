@@ -24,16 +24,16 @@ https://pypi.org/project/topsis-yashika-102303439/
 - Built using Flask
 - Allows CSV upload, weights, impacts, and email input
 - Automatically emails the result file to the user
-- Deployed on Render cloud platform
+- Deployed on Versel cloud platform
 
 🌐 Live Web App:  
-https://topsis-9cec.onrender.com
+https://topsis-git-main-yashika-08s-projects.vercel.app/
 
 ## 4. User Interface 
 <img width="200" height="500" alt="image" src="https://github.com/user-attachments/assets/ec2eb319-41a6-4c2f-bcec-5695c01b98a8" />
 
 ## Technologies Used
-Python, Flask, Pandas, NumPy, HTML, CSS, SMTP(Simple Mail Tranfer Protocol), GitHub, Render
+Python, Flask, Pandas, NumPy, HTML, CSS, SMTP(Simple Mail Tranfer Protocol), GitHub, Versel
 
 ## Author
 Yashika
