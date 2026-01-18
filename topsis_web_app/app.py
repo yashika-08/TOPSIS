@@ -5,7 +5,11 @@ import os
 import smtplib
 from email.message import EmailMessage
 
-app = Flask(__name__)
+app = Flask(
+    __name__,
+    template_folder="templates",
+    static_folder="static"
+)
 
 UPLOAD_FOLDER = "uploads"
 RESULT_FOLDER = "results"
@@ -89,5 +93,4 @@ def index():
     return render_template("index.html")
 
 
-if __name__ == "__main__":
-    app.run(host = "0.0.0.0", port = 5000)
+
