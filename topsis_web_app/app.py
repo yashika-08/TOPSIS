@@ -1,24 +1,14 @@
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request
 import pandas as pd
 import numpy as np
 import os
 import smtplib
 from email.message import EmailMessage
 
-app = Flask(
-    __name__,
-    template_folder="templates",
-    static_folder="static"
-)
-
-UPLOAD_FOLDER = "uploads"
-RESULT_FOLDER = "results"
-
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-os.makedirs(RESULT_FOLDER, exist_ok=True)
+app = Flask(__name__)
 
 
-def run_topsis(input_file, weights, impacts, output_file):
+def run_topsis(input_file, weights, impacts):
     df = pd.read_csv(input_file)
     data = df.iloc[:, 1:].astype(float)
 
@@ -36,9 +26,6 @@ def run_topsis(input_file, weights, impacts, output_file):
             ideal_best.append(weighted.iloc[:, i].min())
             ideal_worst.append(weighted.iloc[:, i].max())
 
-    ideal_best = np.array(ideal_best)
-    ideal_worst = np.array(ideal_worst)
-
     dist_best = np.sqrt(((weighted - ideal_best) ** 2).sum(axis=1))
     dist_worst = np.sqrt(((weighted - ideal_worst) ** 2).sum(axis=1))
 
@@ -47,26 +34,28 @@ def run_topsis(input_file, weights, impacts, output_file):
     df["Topsis Score"] = score
     df["Rank"] = df["Topsis Score"].rank(ascending=False).astype(int)
 
-    df.to_csv(output_file, index=False)
+    return df
 
 
-def send_email(receiver_email, file_path):
-    sender_email = "yashikagarg1508@gmail.com"
-    sender_password = "qrnz fjkc syrz pnpq"
+def send_email(receiver_email, content_csv):
+    sender_email = os.environ.get("EMAIL_USER")
+    sender_password = os.environ.get("EMAIL_PASS")
+
+    if not sender_email or not sender_password:
+        raise Exception("Email credentials not set")
 
     msg = EmailMessage()
-    msg["Subject"] = "TOPSIS Result File"
+    msg["Subject"] = "TOPSIS Result"
     msg["From"] = sender_email
     msg["To"] = receiver_email
-    msg.set_content("Please find the attached TOPSIS result file.")
+    msg.set_content("Please find the TOPSIS results attached.")
 
-    with open(file_path, "rb") as f:
-        msg.add_attachment(
-            f.read(),
-            maintype="application",
-            subtype="octet-stream",
-            filename=os.path.basename(file_path),
-        )
+    msg.add_attachment(
+        content_csv.encode(),
+        maintype="text",
+        subtype="csv",
+        filename="result.csv"
+    )
 
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
         server.login(sender_email, sender_password)
@@ -76,21 +65,32 @@ def send_email(receiver_email, file_path):
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
-        file = request.files["file"]
-        weights = list(map(float, request.form["weights"].split(",")))
-        impacts = request.form["impacts"].split(",")
-        email = request.form["email"]
+        try:
+            file = request.files["file"]
+            weights = list(map(float, request.form["weights"].split(",")))
+            impacts = request.form["impacts"].split(",")
 
-        input_path = os.path.join(UPLOAD_FOLDER, file.filename)
-        output_path = os.path.join(RESULT_FOLDER, "result.csv")
+            send_email_flag = request.form.get("send_email")
+            email = request.form.get("email")
 
-        file.save(input_path)
+            input_path = "/tmp/input.csv"
+            file.save(input_path)
 
-        run_topsis(input_path, weights, impacts, output_path)
-        send_email(email, output_path)
+            result_df = run_topsis(input_path, weights, impacts)
 
-        return render_template("success.html")
+            # OPTIONAL EMAIL
+            if send_email_flag and email:
+                try:
+                    send_email(email, result_df.to_csv(index=False))
+                except Exception as e:
+                    print("Email failed:", e)
+
+            return render_template(
+                "result.html",
+                tables=[result_df.to_html(classes="table table-bordered", index=False)]
+            )
+
+        except Exception as e:
+            return f"Error occurred: {str(e)}", 500
+
     return render_template("index.html")
-
-
-

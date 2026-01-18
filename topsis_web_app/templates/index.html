@@ -61,6 +61,15 @@
             margin-top: 4px;
         }
 
+        .checkbox-container {
+            margin-top: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            color: #444;
+        }
+
         button {
             margin-top: 25px;
             width: 100%;
@@ -104,16 +113,31 @@
         <label>Impacts (comma separated)</label>
         <input type="text" name="impacts" placeholder="e.g. +,+,-,+,+" required>
 
-        <label>Email to send result</label>
-        <input type="email" name="email" placeholder="example@gmail.com" required>
+        <!-- OPTIONAL EMAIL CHECKBOX -->
+        <div class="checkbox-container">
+            <input type="checkbox" id="send_email" name="send_email">
+            <label for="send_email">Send results to email (optional)</label>
+        </div>
+
+        <!-- EMAIL FIELD (HIDDEN BY DEFAULT) -->
+        <div id="email_box" style="display:none;">
+            <label>Email Address</label>
+            <input type="email" name="email" placeholder="example@gmail.com">
+            <div class="hint">Results will be sent to this email address</div>
+        </div>
 
         <button type="submit">Run TOPSIS</button>
     </form>
-
-    <footer>
-        © 2026 | TOPSIS Decision Support System
-    </footer>
 </div>
+
+<script>
+    const checkbox = document.getElementById("send_email");
+    const emailBox = document.getElementById("email_box");
+
+    checkbox.addEventListener("change", function () {
+        emailBox.style.display = this.checked ? "block" : "none";
+    });
+</script>
 
 </body>
 </html>
