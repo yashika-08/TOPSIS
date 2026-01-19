@@ -27,7 +27,7 @@ https://pypi.org/project/topsis-yashika-102303439/
 - Deployed on Versel cloud platform
 
 🌐 Live Web App:  
-https://topsis-git-main-yashika-08s-projects.vercel.app/
+https://topsis-q0eeimco9-yashika-08s-projects.vercel.app/
 
 ## 4. User Interface 
 <img width="200" height="500" alt="image" src="https://github.com/user-attachments/assets/ec2eb319-41a6-4c2f-bcec-5695c01b98a8" />
